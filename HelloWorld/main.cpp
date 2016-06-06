@@ -23,6 +23,7 @@ int main(int argc, char** argv) {
     
     cout << "Hello World!" << endl;
     cout << "Cambio satisfactorio" << endl;
+    cout << "De Windows a linux corre!!!" << endl;
 
     return 0;
 }
