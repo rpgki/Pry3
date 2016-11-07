@@ -12,6 +12,7 @@ using namespace std;
 #include "Grafo.h"
 #include "Simulador.h"
 #include "Nodo.h"
+#include "Persona.h"
 
 // EFE: despliega en la ventana dibujos de nodos y arcos
 void display(void){
@@ -29,5 +30,6 @@ int main(int argc, char** argv) {
     grf.generaPequenyoMundo(88,0.5); // con promedio de 88 adyacencias por nodo y beta = 0.5
     Simulador sml(grf);
     visualizar(grf);
+    
     return 0;
 }
