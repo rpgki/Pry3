@@ -15,12 +15,13 @@ using namespace std;
 class Nombre {
 public:
     Nombre();
+    Nombre(const string& n, const string& ap1, const string& ap2);
     Nombre(const Nombre& orig);
     virtual ~Nombre();
     void asgNombre(string n);
     void asgApellido1(string ap1);
     void asgApellido2(string ap2);
-    bool operator<=(const Nombre&) const;
+    bool operator<(const Nombre&) const;
     bool operator==(const Nombre&) const;
 private:
     string nombre;

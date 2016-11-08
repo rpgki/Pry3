@@ -13,6 +13,7 @@ using namespace std;
 #include "Simulador.h"
 #include "Nodo.h"
 #include "Persona.h"
+#include "Nombre.h"
 
 // EFE: despliega en la ventana dibujos de nodos y arcos
 void display(void){
@@ -30,6 +31,18 @@ int main(int argc, char** argv) {
     grf.generaPequenyoMundo(88,0.5); // con promedio de 88 adyacencias por nodo y beta = 0.5
     Simulador sml(grf);
     visualizar(grf);
+    
+    Nombre n1("Araya", "Batistuta", "Ana");
+    Nombre n2("Araya", "Abarca", "Ana");
+    Nombre n3("Araya", "Batistuta", "Luis");
+    Nombre n4(n1);
+    
+    if(n1 < n3)
+        cout << "n1 es menor a n3" << endl;
+    else
+        cout << "n3 es menor a n1" << endl;
+    
+    Persona p("Carlos","113980914",27,'M');
     
     return 0;
 }

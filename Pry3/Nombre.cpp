@@ -10,6 +10,10 @@
 Nombre::Nombre():nombre(""), apellido1(""), apellido2("") {
 }
 
+Nombre::Nombre(const string& n, const string& ap1, const string& ap2):nombre(n), apellido1(ap1), apellido2(ap2) {
+}
+
+
 Nombre::Nombre(const Nombre& orig) {
     string copiaNombre = orig.nombre;
     string copiaApellido1 = orig.apellido1;
@@ -36,9 +40,14 @@ void Nombre::asgApellido2(string ap2) {
 }
 
 bool Nombre::operator<(const Nombre& n) const {
-    return apellido1 < n.apellido1;
+    if(apellido1 < n.apellido1)
+        return apellido1 < n.apellido1;
+    else if(apellido2 < n.apellido2)
+        return apellido2 < n.apellido2;
+    else if(nombre < n.nombre)
+        return nombre < n.nombre;
 }
 
 bool Nombre::operator==(const Nombre& n) const {
-
+    return apellido1 == n.apellido1 && apellido2 == n.apellido2 && nombre == n.nombre;
 }
