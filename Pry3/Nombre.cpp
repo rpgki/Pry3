@@ -39,6 +39,18 @@ void Nombre::asgApellido2(string ap2) {
     apellido2 = ap2;
 }
 
+string& Nombre::obtNombre(){
+    return nombre;
+}
+
+string& Nombre::obtApellido1() {
+    return apellido1;
+}
+
+string& Nombre::obtApellido2() {
+    return apellido2;
+}
+
 bool Nombre::operator<(const Nombre& n) const {
     if(apellido1 < n.apellido1)
         return apellido1 < n.apellido1;

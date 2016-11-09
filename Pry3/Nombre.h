@@ -21,6 +21,9 @@ public:
     void asgNombre(string n);
     void asgApellido1(string ap1);
     void asgApellido2(string ap2);
+    string& obtNombre();
+    string& obtApellido1();
+    string& obtApellido2();
     bool operator<(const Nombre&) const;
     bool operator==(const Nombre&) const;
 private:

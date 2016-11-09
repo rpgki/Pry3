@@ -43,3 +43,19 @@ void Persona::asgNombre(string n) {
 void Persona::asgSexo(char sx) {
     sexo = sx;
 }
+
+string& Persona::obtNombre() {
+    return nombre;
+}
+
+string& Persona::obtId() {
+    return id;
+}
+
+int& Persona::obtEdad() {
+    return edad;
+}
+
+char& Persona::obtSexo() {
+    return sexo;
+}

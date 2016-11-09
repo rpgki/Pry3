@@ -22,6 +22,10 @@ public:
     void asgId(string idd);
     void asgEdad(int ed);
     void asgSexo(char sx);
+    string& obtNombre();
+    string& obtId();
+    int& obtEdad();
+    char& obtSexo();
     
 private:
         string nombre;
