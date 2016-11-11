@@ -22,10 +22,10 @@ public:
     void asgId(string idd);
     void asgEdad(int ed);
     void asgSexo(char sx);
-    string& obtNombre();
-    string& obtId();
-    int& obtEdad();
-    char& obtSexo();
+    string obtNombre() const;
+    string obtId() const;
+    int obtEdad() const;
+    char obtSexo() const;
     
 private:
         string nombre;

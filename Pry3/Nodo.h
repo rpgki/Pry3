@@ -7,6 +7,8 @@
 
 #ifndef NODO_H
 #define	NODO_H
+#include <chrono>
+#include <random>
 
 class Nodo {
 public:

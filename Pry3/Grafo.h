@@ -17,8 +17,10 @@ template < typename IV, typename V >
 class Grafo {
     // Representa un grafo con vértices tipo V e identificadores de vértices tipo IV.
     // Requiere:
-    // 1. V() e IV() estén definidos.
-    // 2. bool IV::operator<(const IV&) const esté definido.
+    // 1. IV() y V() estén definidos.
+	// 2. IV(const IV&) y V(const V&) estén definidos.
+    // 3. bool IV::operator<(const IV&) const esté definido.
+	// 4. bool IV::operator==(const IV&) const esté definido.
     
 public:
     

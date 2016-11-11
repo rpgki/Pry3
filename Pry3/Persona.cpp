@@ -44,18 +44,18 @@ void Persona::asgSexo(char sx) {
     sexo = sx;
 }
 
-string& Persona::obtNombre() {
+string Persona::obtNombre() const {
     return nombre;
 }
 
-string& Persona::obtId() {
+string Persona::obtId() const {
     return id;
 }
 
-int& Persona::obtEdad() {
+int Persona::obtEdad() const {
     return edad;
 }
 
-char& Persona::obtSexo() {
+char Persona::obtSexo() const {
     return sexo;
 }

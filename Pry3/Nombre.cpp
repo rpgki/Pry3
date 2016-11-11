@@ -39,15 +39,15 @@ void Nombre::asgApellido2(string ap2) {
     apellido2 = ap2;
 }
 
-string& Nombre::obtNombre(){
+string Nombre::obtNombre() const {
     return nombre;
 }
 
-string& Nombre::obtApellido1() {
+string Nombre::obtApellido1() const {
     return apellido1;
 }
 
-string& Nombre::obtApellido2() {
+string Nombre::obtApellido2() const {
     return apellido2;
 }
 
