@@ -15,7 +15,7 @@ using namespace std;
 class Persona {
 public:
     Persona();
-    Persona(const string& n, const string& idd, const int& ed, const char& sx);
+    Persona(string n, string idd, int ed, char sx);
     Persona(const Persona& orig);
     virtual ~Persona();
     void asgNombre(string n);

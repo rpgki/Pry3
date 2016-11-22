@@ -98,13 +98,14 @@ void testElmVrt() {
 }
 
 void testElmAdy() {
-    Nodo ndo1; Nodo ndo2;
+    int idVrtO = 0; Nodo ndo1;
+    int idVrtD = 0; Nodo ndo2;
     Grafo<int,Nodo> grafo;
     grafo.asgVrt(0,ndo1); grafo.asgVrt(1,ndo2);
-    grafo.asgAdy(0, 1);
-    grafo.elmAdy(0, 1);
-    if (grafo.xstAdy(0,1)) {
-        std::cout << "%TEST_FAILED% time=0 testname=testElmAdy (PbaGrafoNodo) message=error prueba eliminar adyacencia fallo" << std::endl;
+    grafo.asgAdy(idVrtO, idVrtD);
+    grafo.elmAdy(idVrtO, idVrtD);
+    if (grafo.xstAdy(idVrtO,idVrtD) || grafo.xstAdy(idVrtD,idVrtO)) {
+        std::cout << "%TEST_FAILED% time=0 testname=testElmAdy (PbaGrafoPersona) message=error prueba eliminar adyacencia fallo" << std::endl;
     }
 }
 

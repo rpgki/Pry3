@@ -15,7 +15,7 @@ using namespace std;
 class Nombre {
 public:
     Nombre();
-    Nombre(const string& n, const string& ap1, const string& ap2);
+    Nombre(string n, string ap1, string ap2);
     Nombre(const Nombre& orig);
     virtual ~Nombre();
     void asgNombre(string n);
@@ -24,8 +24,8 @@ public:
     string obtNombre() const;
     string obtApellido1() const;
     string obtApellido2() const;
-    bool operator<(const Nombre&) const;
-    bool operator==(const Nombre&) const;
+    bool operator<(const Nombre& n) const;
+    bool operator==(const Nombre& n) const;
 private:
     string nombre;
     string apellido1;

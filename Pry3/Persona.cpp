@@ -10,7 +10,11 @@
 Persona::Persona(): nombre(""),id(""),edad(0),sexo() {
 }
 
-Persona::Persona(const string& n, const string& idd, const int& ed, const char& sx): nombre(n), id(idd), edad(ed), sexo(sx) {
+Persona::Persona(string n, string idd, int ed, char sx) {
+    nombre = n;
+    id = idd;
+    edad = ed;
+    sexo = sx;
 }
 
 Persona::Persona(const Persona& orig) {
