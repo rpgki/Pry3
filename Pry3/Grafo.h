@@ -162,7 +162,7 @@ Grafo<IV,V>::Grafo(const Grafo<IV,V>& orig) {
 template < typename IV, typename V >
 bool Grafo<IV,V>::xstVrt(const IV& idVrt) const {
     bool result = false;
-    typename map<IV,Vrt>::const_iterator it = mapNodos.find(idVrt);
+    typename map<IV,Vrt>::const_iterator it = mapNodos.find(idVrt); //Se busca idVrt en las llaves del mapa.
     if(it != mapNodos.end()){
         result = true;
     }
@@ -173,7 +173,7 @@ template < typename IV, typename V >
 bool Grafo<IV,V>::xstAdy(const IV& idVrtO, const IV& idVrtD) const {
     bool result = false;
     for(int i = 0; i < mapNodos.at(idVrtO).lstAdy.size(); i++){
-        if(!result && mapNodos.at(idVrtO).lstAdy.at(i) == idVrtD){
+        if(!result && mapNodos.at(idVrtO).lstAdy.at(i) == idVrtD){ //Se busca idVrtD en la lista de adyacencia de idVrtO.
             result = true;
         }
     }
@@ -182,39 +182,39 @@ bool Grafo<IV,V>::xstAdy(const IV& idVrtO, const IV& idVrtD) const {
  
 template < typename IV, typename V >
 const V& Grafo<IV,V>::obtVrt(const IV& idVrt) const {
-    return mapNodos.find(idVrt)->second.vertice;
+    return mapNodos.find(idVrt)->second.vertice; //Retorna el vertice de idVrt.
 }
  
 template < typename IV, typename V >
 const vector<IV>& Grafo<IV,V>::obtAdy(const IV& idVrt) const {
-    return mapNodos.find(idVrt)->second.lstAdy;
+    return mapNodos.find(idVrt)->second.lstAdy; //Retorna el vector de adyacentes de idVrt.
 }
  
 template < typename IV, typename V >
 int Grafo<IV,V>::obtTotVrt() const {
-    return mapNodos.size();
+    return mapNodos.size(); //Retorna el total de llaves de un mapa.
 }
  
 template < typename IV, typename V >
 int Grafo<IV,V>::obtTotAdy() const {
     int result = 0;
     for(typename map<IV,Vrt>::const_iterator it = mapNodos.begin(); it != mapNodos.end() ; it++){
-        result += it->second.lstAdy.size();
+        result += it->second.lstAdy.size(); //Se suman el total de adyacentes en el mapa.
     }
     return result;
 }
  
 template < typename IV, typename V >
 int Grafo<IV,V>::obtTotAdy(const IV& idVrt) const {
-    return mapNodos.at(idVrt).lstAdy.size();
+    return mapNodos.at(idVrt).lstAdy.size(); //Retorna el total de adyacentes de idVrt.
 }
  
 template < typename IV, typename V >
 double Grafo<IV,V>::obtPrmAdy() const {
     int totAdydeaqui = 0;
-    int totVrtdeaqui = mapNodos.size();
+    int totVrtdeaqui = mapNodos.size(); //Se obtiene el total de vertices.
     for(typename map<IV,Vrt>::const_iterator it = mapNodos.begin(); it != mapNodos.end() ; it++){
-        totAdydeaqui += it->second.lstAdy.size();
+        totAdydeaqui += it->second.lstAdy.size(); //Se obtiene el total de adyacentes.
     }
     if(totVrtdeaqui == 0)
         return totVrtdeaqui;
@@ -258,35 +258,35 @@ double Grafo<IV,V>::coeficienteAgrupamiento() const {
  
 template < typename IV, typename V >
 V& Grafo<IV,V>::operator[](const IV& idVrt){
-    mapNodos[idVrt].vertice;
+    mapNodos[idVrt].vertice; //Se sobrecarga el operador.
 }
  
 template < typename IV, typename V >
 void Grafo<IV,V>::asgVrt(const IV& idVrt, const V& vrt){
-     mapNodos.insert(pair<IV,Vrt>(idVrt,Vrt(vrt)));
+     mapNodos.insert(pair<IV,Vrt>(idVrt,Vrt(vrt))); //Se ingresan los datos al mapa.
 }
  
 template < typename IV, typename V >
 void Grafo<IV,V>::asgAdy(const IV& idVrtO, const IV& idVrtD){
-    mapNodos[idVrtO].lstAdy.push_back(idVrtD);
-    mapNodos[idVrtD].lstAdy.push_back(idVrtO);
+    mapNodos[idVrtO].lstAdy.push_back(idVrtD); //Se ingresa idVrtD a la lista de adyacentes de idVrtO.
+    mapNodos[idVrtD].lstAdy.push_back(idVrtO); //Se ingresa idVrtO a la lista de adyacentes de idVrtD.
 }
  
 template < typename IV, typename V >
 void Grafo<IV,V>::elmVrt(const IV& idVrt){
-    mapNodos.erase(idVrt);
+    mapNodos.erase(idVrt); //Se borra el vertice idVrt del mapa.
 }
  
 template < typename IV, typename V >
 void Grafo<IV,V>::elmAdy(const IV& idVrtO, const IV& idVrtD){
     typename vector<IV>::const_iterator it; typename vector<IV>::const_iterator it2;
-    it = find(mapNodos[idVrtO].lstAdy.begin(),mapNodos[idVrtO].lstAdy.end(),idVrtD);
+    it = find(mapNodos[idVrtO].lstAdy.begin(),mapNodos[idVrtO].lstAdy.end(),idVrtD); //Se busca idVrtD en la lista de adyacencias de idVrtO.
     if(it != mapNodos[idVrtO].lstAdy.end()){
-        mapNodos[idVrtO].lstAdy.erase(it);
+        mapNodos[idVrtO].lstAdy.erase(it); //Se elimina idVrtD del vector de adyacentes de idVrtO.
     }
-    it2 = find(mapNodos[idVrtD].lstAdy.begin(),mapNodos[idVrtD].lstAdy.end(),idVrtO);
+    it2 = find(mapNodos[idVrtD].lstAdy.begin(),mapNodos[idVrtD].lstAdy.end(),idVrtO); //Se busca idVrtO en la lista de adyacencias de idVrtD.
     if(it2 != mapNodos[idVrtD].lstAdy.end()){
-        mapNodos[idVrtD].lstAdy.erase(it);
+        mapNodos[idVrtD].lstAdy.erase(it); //Se elimina idVrtO del vector de adyacentes de idVrtD.
     }
 }
  

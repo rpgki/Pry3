@@ -13,7 +13,7 @@
 class Nodo {
 public:
     // Representa un nodo de la red de computadores sobre la cual se aplica la simulación
-	// de dispersión de virus.
+    // de dispersión de virus.
 	
     /* TIPO PÚBLICO DE ESTADOS DE VÉRTICES */
     enum E{ // representa el tipo de estados de la red de infección

@@ -26,7 +26,7 @@ void testGrafo() {
     double vrtProm = grafo.obtPrmAdy();
     int totAdy = grafo.obtTotAdy();
     if (totVrt != 0 && vrtProm != 0.0 && totAdy != 0) {
-        std::cout << "%TEST_FAILED% time=0 testname=testGrafo (PbaGrafoPersona) message=error prueba constructor estandar fallo" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testGrafo (PbaGrafoNodo) message=error prueba constructor estandar fallo" << std::endl;
     }
 }
 
@@ -40,20 +40,20 @@ void testGrafo2() {
     Grafo<int,Nodo> grafo(orig);
     if ( (!grafo.xstVrt(0) && !grafo.xstVrt(1) && !grafo.xstVrt(2)) || 
          (!grafo.xstAdy(0, 1) && !grafo.xstAdy(0, 2) && !grafo.xstAdy(1, 2))) {
-        std::cout << "%TEST_FAILED% time=0 testname=testGrafo2 (PbaGrafoPersona) message=prueba constructor de copias fallo" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testGrafo2 (PbaGrafoNodo) message=prueba constructor de copias fallo" << std::endl;
     }
     
     Nodo datos1; Nodo datos2; Nodo datos3;
     
     datos1 = grafo.obtVrt(0); datos2 = grafo.obtVrt(1); datos3 = grafo.obtVrt(2);
     if (datos1.obtCntChqVrs() != 0 && datos1.obtEst() != Nodo::S && datos1.obtTmpChqVrs() != 1){
-        std::cout << "%TEST_FAILED% time=0 testname=testGrafo2 (PbaGrafoPersona) message=prueba constructor de copias fallo con el nodo1" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testGrafo2 (PbaGrafoNodo) message=prueba constructor de copias fallo con el nodo1" << std::endl;
     }
     if (datos2.obtCntChqVrs() != 0 && datos2.obtEst() != Nodo::S && datos2.obtTmpChqVrs() != 1){
-        std::cout << "%TEST_FAILED% time=0 testname=testGrafo2 (PbaGrafoPersona) message=prueba constructor de copias fallo con el nodo2" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testGrafo2 (PbaGrafoNodo) message=prueba constructor de copias fallo con el nodo2" << std::endl;
     }
     if (datos3.obtCntChqVrs() != 0 && datos3.obtEst() != Nodo::S && datos3.obtTmpChqVrs() != 1){
-        std::cout << "%TEST_FAILED% time=0 testname=testGrafo2 (PbaGrafoPersona) message=prueba constructor de copias fallo con el nodo3" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testGrafo2 (PbaGrafoNodo) message=prueba constructor de copias fallo con el nodo3" << std::endl;
     }
 }
 
@@ -63,7 +63,7 @@ void testOperator(){
     grafo.asgVrt(0,vrt);
     vrtPba = grafo[0];
     if (vrtPba.obtCntChqVrs() != 0 && vrtPba.obtEst() != Nodo::S && vrtPba.obtTmpChqVrs() != 1) {
-        std::cout << "%TEST_FAILED% time=0 testname=testOperator[] (PbaGrafoPersona) message=error prueba del operador [] fallo" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testOperator[] (PbaGrafoNodo) message=error prueba del operador [] fallo" << std::endl;
     }
 }
 
@@ -105,7 +105,25 @@ void testElmAdy() {
     grafo.asgAdy(idVrtO, idVrtD);
     grafo.elmAdy(idVrtO, idVrtD);
     if (grafo.xstAdy(idVrtO,idVrtD) || grafo.xstAdy(idVrtD,idVrtO)) {
-        std::cout << "%TEST_FAILED% time=0 testname=testElmAdy (PbaGrafoPersona) message=error prueba eliminar adyacencia fallo" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testElmAdy (PbaGrafoNodo) message=error prueba eliminar adyacencia fallo" << std::endl;
+    }
+}
+
+void testGeneraPequenyoMundo(){
+    Nodo ndo1; Nodo ndo2; Nodo ndo3; Nodo ndo4; Nodo ndo5;
+    Nodo ndo6; Nodo ndo7; Nodo ndo8; Nodo ndo9; Nodo nd10;
+    
+    Grafo<int, Nodo> grf;
+    
+    grf.asgVrt(0,ndo1); grf.asgVrt(1,ndo1); grf.asgVrt(2,ndo1); grf.asgVrt(3,ndo1); grf.asgVrt(4,ndo1);
+    grf.asgVrt(5,ndo1); grf.asgVrt(6,ndo1); grf.asgVrt(7,ndo1); grf.asgVrt(8,ndo1); grf.asgVrt(9,ndo1);
+    
+    grf.generaPequenyoMundo(6,0.5);
+    
+    double coefAgpGbl = grf.coeficienteAgrupamiento();
+    
+    if (coefAgpGbl < 0.5) {
+        std::cout << "%TEST_FAILED% time=0 testname=testGeneraPequenyoMundo (PbaGrafoNodo) message=error prueba genera pequenyos mundos fallo" << std::endl;
     }
 }
 
@@ -120,6 +138,10 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% testGrafo2 (PbaGrafoNodo)" << std::endl;
     testGrafo2();
     std::cout << "%TEST_FINISHED% time=0 testGrafo2 (PbaGrafoNodo)" << std::endl;
+    
+    std::cout << "%TEST_STARTED% testOperator[] (PbaGrafoNodo)" << std::endl;
+    testOperator();
+    std::cout << "%TEST_FINISHED% time=0 testOperator[] (PbaGrafoNodo)" << std::endl;
 
     std::cout << "%TEST_STARTED% testAsgVrt (PbaGrafoNodo)" << std::endl;
     testAsgVrt();
@@ -136,6 +158,10 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% testElmAdy (PbaGrafoNodo)" << std::endl;
     testElmAdy();
     std::cout << "%TEST_FINISHED% time=0 testElmAdy (PbaGrafoNodo)" << std::endl;
+    
+    std::cout << "%TEST_STARTED% testGeneraPequenyoMundo (newsimpletest)" << std::endl;
+    testGeneraPequenyoMundo();
+    std::cout << "%TEST_FINISHED% time=0 testGeneraPequenyoMundo (newsimpletest)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 

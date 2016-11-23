@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
     grf.asgVrt(0,ndo1); grf.asgVrt(1,ndo1); grf.asgVrt(2,ndo1); grf.asgVrt(3,ndo1); grf.asgVrt(4,ndo1);
     grf.asgVrt(5,ndo1); grf.asgVrt(6,ndo1); grf.asgVrt(7,ndo1); grf.asgVrt(8,ndo1); grf.asgVrt(9,ndo1);
     
-    grf.generaPequenyoMundo(4,0.5); // con promedio de 88 adyacencias por nodo y beta = 0.5
+    grf.generaPequenyoMundo(6,0.5); // con promedio de 88 adyacencias por nodo y beta = 0.5
     
     cout << "Coeficiente global: " << grf.coeficienteAgrupamiento() << endl;
     

@@ -18,15 +18,10 @@ Persona::Persona(string n, string idd, int ed, char sx) {
 }
 
 Persona::Persona(const Persona& orig) {
-    string copia_nombre = orig.nombre;
-    string copia_id = orig.id;
-    int copia_edad = orig.edad;
-    char copia_sexo = orig.sexo;
-    
-    nombre = copia_nombre;
-    id = copia_id;
-    edad = copia_edad;
-    sexo = copia_sexo;
+    nombre = orig.nombre;
+    id = orig.id;
+    edad = orig.edad;
+    sexo = orig.sexo;
 }
 
 Persona::~Persona() {
