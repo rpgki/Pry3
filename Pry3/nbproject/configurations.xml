@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>Datos.h</itemPath>
       <itemPath>Grafo.h</itemPath>
       <itemPath>Nodo.h</itemPath>
       <itemPath>Nombre.h</itemPath>
@@ -17,6 +18,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Datos.cpp</itemPath>
       <itemPath>Nodo.cpp</itemPath>
       <itemPath>Nombre.cpp</itemPath>
       <itemPath>Persona.cpp</itemPath>
@@ -65,7 +67,16 @@
         <ccTool>
           <standard>8</standard>
         </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>-lfreeglut -lopengl32</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
+      <item path="Datos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Datos.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Grafo.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Nodo.cpp" ex="false" tool="1" flavor2="0">
@@ -159,6 +170,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="Datos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Datos.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Grafo.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Nodo.cpp" ex="false" tool="1" flavor2="0">

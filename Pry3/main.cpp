@@ -5,81 +5,187 @@
  * Created on 1 de septiembre de 2016, 06:48 PM
  */
  
-#include <iostream>
-#include <vector>
-using namespace std;
- 
 #include "Grafo.h"
 #include "Simulador.h"
 #include "Nodo.h"
 #include "Persona.h"
 #include "Nombre.h"
+#include <string>
+#include <vector>
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <windows.h>
+#include <GL/glut.h>
+#include "Datos.h"
+#include <stdio.h>
  
-// EFE: despliega en la ventana dibujos de nodos y arcos
-void display(void){
-     
+using namespace std;
+ 
+ 
+string nArch;
+int N;
+int K;
+double beta;
+int valor;
+ 
+Grafo<int, Nodo> crearGrafo() {
+    cout << "Programa de simulacion de un virus en una red. Por favor digite 1 si desea crear una red personalizada o 2 si desea ingresar el archivo" << endl;
+    cin >> valor;
+    Grafo<int, Nodo> graf;
+    Nodo ndo;
+    int cont = 0;
+    int cntVrt = 0;
+    if (valor == 1) {
+        cout << "Cantidad de vertices: " << endl;
+        cin >> N;
+        cout << "Grado de vertices promedio: " << endl;
+        cin >> K;
+        cout << "Probabilidad de adyacencia: " << endl;
+        cin >> beta;
+        while (N > 0) {
+            graf.asgVrt(cont, ndo);
+            N--;
+            cont++;
+        }
+        graf.generaPequenyoMundo(K, beta);
+        return graf;
+    } else if (valor == 2) {
+        cout << "Nombre del archivo: " << endl;
+        cin >> nArch;
+        vector<Nodo> vectorNodos;
+        string hilera; //se inicializa la variable que contendra las hileras del archivo
+        string aux; //en esta variable se guarda cada caracter de la hilera
+        int pos = 0; //contador para posicion del arreglo que contendra los nodos
+        ifstream grafo(nArch); //se lee el archivo que contiene el grafo
+ 
+        if (!grafo) { // operador ! sobrecargado
+            cerr << "No se pudo abrir el archivo de entrada" << endl;
+            exit(1);
+        }
+ 
+        getline(grafo, hilera); //se lee la primera linea del archivo
+        cntVrt = stoi(hilera); //se convierte la primera linea a entero
+        vectorNodos.reserve(cntVrt); //Se asigna el tamaño de memoria al vector
+        while (getline(grafo, hilera)) { //mientras no se acaben las hileras del archivo
+            graf.asgVrt(cont, ndo);
+            for (int i = 0; i < hilera.size() - 1; i++) { //este ciclo lee todos los caracteres de la hilera
+                if (hilera[i] != ' ') {
+                    aux = aux + hilera[i]; //se guarda el caracter en aux
+                } else {
+                    graf.asgAdy(cont, (stoi(aux)));
+                    aux = "";
+                }
+            }
+            graf.asgAdy(cont, (stoi(aux)));
+            aux = "";
+            pos = pos + 1; //se aumenta el contador de posiciones para el arreglo de vertices
+            cont++;
+        }
+    } else {
+        cout << "Introduzca una opcion valida" << endl;
+        exit(1);
+    }
+}
+Grafo<int, Nodo> g = crearGrafo();
+Datos d(g);
+Simulador s(g);
+  
+int tam;
+int maxFreq;
+double inf;
+double recu;
+double res;
+      
+// EFE: Dibuja una línea con dos puntos cuadrados en sus extremos centrados en (xo,yo) y (xd,yd).
+void dibujarLinea(float xo, float yo, float xd, float yd, Nodo::E e, Grafo<int, Nodo> g){
+  glPointSize(9.0); //Ajusta el tamaño de los puntos
+  if(e == Nodo::S){
+  glColor3f(0.0, 0.0, 1.0); //Color blanc
+  glBegin(GL_POINTS); // dibuja los puntos
+    glVertex2f(xo, yo);
+  } else{ if(e == Nodo::I){
+  glColor3f(1.0, 0.0, 0.0); //Color blanc
+  glBegin(GL_POINTS); // dibuja los puntos
+    glVertex2f(xo, yo);
+  }else{ 
+      glColor3f(0.0, 1.0, 0.0); //Color blanc
+  glBegin(GL_POINTS); // dibuja los puntos
+    glVertex2f(xo, yo);
+  }
+  }
+  glEnd();
+  glLineWidth(1.6); //Ajusta el ancho de las lineas
+  glColor3f(0.5, 0.5, 0.5); //Color blanco
+  glBegin(GL_LINES); // dibuja una sola linea
+    glVertex2f(xo, yo);
+    glVertex2f(xd, yd);
+  glEnd();
 }
  
-// EFE: despliega en la ventana el estado de g.
-void visualizar(Grafo<Nodo, int>&g){
-     
+void renderBitmapString(float x, float y, void *font, const char *string)
+{
+    const char *c;
+    glRasterPos3f(x, y, 0);
+    for (c = string; *c != '\0'; c++)
+    {
+        glutBitmapCharacter(font, *c);
+    }
 }
  
-int main(int argc, char** argv) {
-    Grafo<int, Nodo> grf;
-    // aquí habría que llenar el conjunto de vértices de grf usando asgVrt(...).
-    
-    Nodo ndo1; Nodo ndo2; Nodo ndo3; Nodo ndo4; Nodo ndo5;
-    Nodo ndo6; Nodo ndo7; Nodo ndo8; Nodo ndo9; Nodo nd10;
-    
-    grf.asgVrt(0,ndo1); grf.asgVrt(1,ndo1); grf.asgVrt(2,ndo1); grf.asgVrt(3,ndo1); grf.asgVrt(4,ndo1);
-    grf.asgVrt(5,ndo1); grf.asgVrt(6,ndo1); grf.asgVrt(7,ndo1); grf.asgVrt(8,ndo1); grf.asgVrt(9,ndo1);
-    
-    grf.generaPequenyoMundo(6,0.5); // con promedio de 88 adyacencias por nodo y beta = 0.5
-    
-    cout << "Coeficiente global: " << grf.coeficienteAgrupamiento() << endl;
-    
-    cout << "Coeficiente de 0: " << grf.coeficienteAgrupamiento(0) << endl;
-    cout << "Coeficiente de 1: " << grf.coeficienteAgrupamiento(1) << endl;
-    cout << "Coeficiente de 2: " << grf.coeficienteAgrupamiento(2) << endl;
-    cout << "Coeficiente de 3: " << grf.coeficienteAgrupamiento(3) << endl;
-    cout << "Coeficiente de 4: " << grf.coeficienteAgrupamiento(4) << endl;
-    cout << "Coeficiente de 5: " << grf.coeficienteAgrupamiento(5) << endl;
-    cout << "Coeficiente de 6: " << grf.coeficienteAgrupamiento(6) << endl;
-    cout << "Coeficiente de 7: " << grf.coeficienteAgrupamiento(7) << endl;
-    cout << "Coeficiente de 8: " << grf.coeficienteAgrupamiento(8) << endl;
-    cout << "Coeficiente de 9: " << grf.coeficienteAgrupamiento(9) << endl;
-    
-    /*cout << grf.obtTotAdy(0) << endl;
-    cout << grf.obtTotAdy(1) << endl;
-    cout << grf.obtTotAdy(2) << endl;
-    cout << grf.obtTotAdy(3) << endl;
-    cout << grf.obtTotAdy(4) << endl;
-    cout << grf.obtTotAdy(5) << endl;
-    cout << grf.obtTotAdy(6) << endl;
-    cout << grf.obtTotAdy(7) << endl;
-    cout << grf.obtTotAdy(8) << endl;
-    cout << grf.obtTotAdy(9) << endl;*/
-    
-    //  Simulador sml(grf);
-    //  visualizar(grf);
-     
-    Nombre n1("Batistuta", "Araya", "Ana");
-    Nombre n2("Araya", "Batistuta", "Ana");
-    Nombre n3("Araya", "Batistuta", "Luis");
-    Nombre n4(n1);
-     
-    if(n4 < n3)
-        cout << "n4 es menor a n3" << endl;
-    else
-        cout << "n3 es menor a n4" << endl;
-     
-    if(n2 < n1)
-        cout << "n2 es menor a n1" << endl;
-    else
-        cout << "n1 es menor a n2" << endl;
-    
-    
-    
+void display(void) // no puede tener parámetros, por eso se usan variables globales
+{
+    Datos d(g);
+    vector<int> VecAdya;
+    for (int i = 0; i < g.obtTotVrt(); i++) {
+        VecAdya = g.obtAdy(i);
+        for (int j = 0; j < g.obtTotAdy(i); j++) {
+            dibujarLinea(d.obtCrdX(i), d.obtCrdY(i), d.obtCrdX(VecAdya[j]), d.obtCrdY(VecAdya[j]), d.obtEst(i),g);
+        }
+    }
+    glFlush();
+}
+  
+ 
+// EFE: captura un evento del teclado mientras el control esté en la ventana.
+void keyboard(unsigned char key, int x, int y)
+{
+   
+  switch (key)
+  {
+    case 32: // para capturar el evento blanco-tecleado
+        s.simular();
+        glutPostRedisplay(); // redibuja
+        break;
+  }
+}
+  
+void visualizar(int argc, char **argv) {
+    glutInit(&argc, argv);
+    glutCreateWindow("Red de Nodos");
+    glutKeyboardFunc(keyboard); // declara una función para capturar eventos del teclado
+    s.iniciarSimulacion(tam, inf, maxFreq, recu, res);
+    glutDisplayFunc(display); // dibuja la primera imagen
+    glutMainLoop(); // otorga el control a la ventana, cuando se cierra retorna al main.    
+}
+  
+int main(int argc, char **argv) {
+    cout << "Acontinuacion se va a iniciar el programa de simulacion. Por favor ingrese los parametros deseados." << endl;
+    cout << "Para propagar el virus presione la tecla espaciadora, una vez se haya abierto la ventana con la red" << endl;
+    cout << "El color rojo representa un vertice infectado." << endl;
+    cout << "El color verde representa un vertice resistente al virus." << endl;
+    cout << "El color azul representa un vertice susceptible al virus." << endl;
+    cout << "Por favor ingrese los parametros deseados: " << endl;
+    cout << "Nodos infectados: " << endl;
+    cin >> tam;
+    cout << "Probabilidad de infeccion: " << endl;
+    cin >> inf;
+    cout << "Maxima frecuencia de chequeo de virus: " << endl;
+    cin >> maxFreq;
+    cout << "Probabilidad de recuperacion: " << endl;
+    cin >> recu;
+    cout << "Probabilidad de resistencia: " << endl;
+    cin >> res;
+    visualizar(argc, argv);
     return 0;
 }
